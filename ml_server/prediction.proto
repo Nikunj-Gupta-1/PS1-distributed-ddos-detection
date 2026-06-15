@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package ddos_detection;
+
+// Service definition for DDoS detection
+service DDoSDetectionService {
+    // Single prediction for a network flow
+    rpc Predict(PredictionRequest) returns (PredictionResponse);
+    
+    // Batch prediction for multiple flows
+    rpc PredictBatch(BatchPredictionRequest) returns (BatchPredictionResponse);
+    
+    // Health check
+    rpc HealthCheck(HealthRequest) returns (HealthResponse);
+}
+
+// Request message for single prediction
+message PredictionRequest {
+    string request_id = 1;
+    string src_ip = 2;
+    string dst_ip = 3;
+    int64 timestamp = 4;
+    
+    // 28 numeric features from your extractor
+    int32 protocol = 5;
+    double flow_duration = 6;
+    int32 total_fwd_packets = 7;
+    int32 total_backward_packets = 8;
+    double fwd_packet_length_max = 9;
+    double fwd_packet_length_min = 10;
+    double fwd_packet_length_mean = 11;
+    double packet_length_mean = 12;
+    double packet_length_std = 13;
+    double flow_bytes_per_second = 14;
+    double flow_packets_per_second = 15;
+    double flow_iat_mean = 16;
+    double flow_iat_std = 17;
+    double flow_iat_max = 18;
+    double flow_iat_min = 19;
+    double fwd_iat_total = 20;
+    double fwd_iat_mean = 21;
+    double fwd_iat_std = 22;
+    double fwd_iat_max = 23;
+    double fwd_iat_min = 24;
+    double bwd_iat_total = 25;
+    double bwd_iat_mean = 26;
+    double bwd_iat_std = 27;
+    double bwd_iat_max = 28;
+    double bwd_iat_min = 29;
+    double fwd_psh_flags = 30;
+    double bwd_psh_flags = 31;
+    double fwd_urg_flags = 32;
+}
+
+// Response message for single prediction
+message PredictionResponse {
+    int32 prediction = 1;      // 0 = Benign, 1 = Attack
+    double confidence = 2;     // Confidence score (0.0 to 1.0)
+    string request_id = 3;     // Original request ID
+    int64 processing_time_ms = 4; // Processing time in milliseconds
+}
+
+// Request message for batch prediction
+message BatchPredictionRequest {
+    repeated PredictionRequest requests = 1;
+}
+
+// Response message for batch prediction
+message BatchPredictionResponse {
+    repeated PredictionResponse responses = 1;
+}
+
+// Health check request
+message HealthRequest {
+    string service_name = 1;
+}
+
+// Health check response
+message HealthResponse {
+    bool is_healthy = 1;
+    string model_status = 2;
+    string version = 3;
+    int64 uptime_seconds = 4;
+}

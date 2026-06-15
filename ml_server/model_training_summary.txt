@@ -1,0 +1,71 @@
+DDoS Detection Model Training Summary (API-Compatible 28 Features)
+======================================================================
+
+Model Type: Binary Classification
+Features Used: 28
+Test Accuracy: 0.9971 (99.71%)
+Cross-validation Mean: 0.9973
+Cross-validation Std: 0.0004
+Training Samples: 145,923
+Test Samples: 36,481
+Classes: ['ATTACK', 'BENIGN']
+
+API-Compatible Feature Names (in order):
+   1. protocol
+   2. flow_duration
+   3. total_fwd_packets
+   4. total_backward_packets
+   5. fwd_packet_length_max
+   6. fwd_packet_length_min
+   7. fwd_packet_length_mean
+   8. packet_length_mean
+   9. packet_length_std
+  10. flow_bytes_per_second
+  11. flow_packets_per_second
+  12. flow_iat_mean
+  13. flow_iat_std
+  14. flow_iat_max
+  15. flow_iat_min
+  16. fwd_iat_total
+  17. fwd_iat_mean
+  18. fwd_iat_std
+  19. fwd_iat_max
+  20. fwd_iat_min
+  21. bwd_iat_total
+  22. bwd_iat_mean
+  23. bwd_iat_std
+  24. bwd_iat_max
+  25. bwd_iat_min
+  26. fwd_psh_flags
+  27. bwd_psh_flags
+  28. fwd_urg_flags
+
+CSV to API Feature Mapping:
+  ' Protocol' -> 'protocol'
+  ' Flow Duration' -> 'flow_duration'
+  ' Total Fwd Packets' -> 'total_fwd_packets'
+  ' Total Backward Packets' -> 'total_backward_packets'
+  ' Fwd Packet Length Max' -> 'fwd_packet_length_max'
+  ' Fwd Packet Length Min' -> 'fwd_packet_length_min'
+  ' Fwd Packet Length Mean' -> 'fwd_packet_length_mean'
+  ' Packet Length Mean' -> 'packet_length_mean'
+  ' Packet Length Std' -> 'packet_length_std'
+  'Flow Bytes/s' -> 'flow_bytes_per_second'
+  ' Flow Packets/s' -> 'flow_packets_per_second'
+  ' Flow IAT Mean' -> 'flow_iat_mean'
+  ' Flow IAT Std' -> 'flow_iat_std'
+  ' Flow IAT Max' -> 'flow_iat_max'
+  ' Flow IAT Min' -> 'flow_iat_min'
+  'Fwd IAT Total' -> 'fwd_iat_total'
+  ' Fwd IAT Mean' -> 'fwd_iat_mean'
+  ' Fwd IAT Std' -> 'fwd_iat_std'
+  ' Fwd IAT Max' -> 'fwd_iat_max'
+  ' Fwd IAT Min' -> 'fwd_iat_min'
+  'Bwd IAT Total' -> 'bwd_iat_total'
+  ' Bwd IAT Mean' -> 'bwd_iat_mean'
+  ' Bwd IAT Std' -> 'bwd_iat_std'
+  ' Bwd IAT Max' -> 'bwd_iat_max'
+  ' Bwd IAT Min' -> 'bwd_iat_min'
+  'Fwd PSH Flags' -> 'fwd_psh_flags'
+  ' Bwd PSH Flags' -> 'bwd_psh_flags'
+  ' URG Flag Count' -> 'fwd_urg_flags'

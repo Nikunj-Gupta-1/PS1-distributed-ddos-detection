@@ -1,0 +1,48 @@
+kafka:
+  # Kafka bootstrap servers - update these for network deployment
+  # For local testing: ["localhost:9092"]
+  # For network deployment: ["192.168.1.100:9092", "192.168.1.101:9092"]
+  bootstrap_servers:
+    - "localhost:9092"
+  
+  # Topic for raw packet data (changed from network_flows)
+  topic: "raw_packets"
+  
+  # Producer settings optimized for network distribution
+  acks: 1                    # Wait for leader acknowledgment
+  linger_ms: 5               # Batch messages for 5ms (faster than 10ms)
+  batch_size: 32768          # 32KB batches for network efficiency
+  compression_type: "snappy" # Fast compression
+  
+  # Network optimization
+  buffer_memory: 33554432    # 32MB buffer
+  max_request_size: 1048576  # 1MB max message size
+  retries: 3                 # Retry failed sends
+  retry_backoff_ms: 100      # 100ms between retries
+  
+  # Consumer settings (for job server)
+  consumer:
+    group_id: "ddos-detection-job-server"
+    auto_offset_reset: "latest"
+    session_timeout_ms: 30000
+    heartbeat_interval_ms: 10000
+    max_poll_records: 100
+    fetch_min_bytes: 1024
+    fetch_max_wait_ms: 500
+
+# Network deployment examples:
+# 
+# Example 1: Single Kafka server on main machine
+# bootstrap_servers:
+#   - "192.168.1.100:9092"
+#
+# Example 2: Kafka cluster for high availability
+# bootstrap_servers:
+#   - "192.168.1.100:9092"
+#   - "192.168.1.101:9092"
+#   - "192.168.1.102:9092"
+#
+# Example 3: Cloud deployment
+# bootstrap_servers:
+#   - "kafka-cluster.example.com:9092"
+

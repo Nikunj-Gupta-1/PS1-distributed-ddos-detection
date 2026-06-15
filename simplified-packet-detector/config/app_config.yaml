@@ -1,0 +1,5 @@
+
+capture:
+  interface: auto          # use first non-loopback if "auto"
+  flow_timeout: 300        # seconds of inactivity before flow eviction
+
