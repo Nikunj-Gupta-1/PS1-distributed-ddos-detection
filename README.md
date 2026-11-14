@@ -112,13 +112,13 @@ sudo bash start_capture_device.sh
 
 ## Data and Models Not Included
 
-Large files are **not** in this repo. They live locally under `raw data collected for project/`:
+Large files and trained model binaries are **not** in this repo (`.pkl` checkpoints were also removed locally to free disk space and can be easily re-trained from `CIC_DDoS2019_To_Use.csv` via `cd ml_server && python model_trainer.py`, which writes `../../raw data collected for project/model1.pkl` — copy/rename to `model4.pkl` or update `model_path` in `ml_server/serve.py`):
 
-| File | Size | Used by |
+| File | Size | Used by / Notes |
 |---|---|---|
-| `model4.pkl` | 51 MB | `ml_server/serve.py` (production model) |
-| `model1.pkl` – `model3.pkl` | 48–59 MB each | Earlier training iterations |
-| `CIC_DDoS2019_To_Use.csv` | 54 MB | `ml_server/model_trainer.py` |
+| `model4.pkl` | ~51 MB | `ml_server/serve.py` (default production checkpoint; re-trainable via `ml_server/model_trainer.py`) |
+| `model1.pkl` – `model3.pkl` | ~48–59 MB each | Earlier training iterations (removed locally; re-trainable via `ml_server/model_trainer.py`) |
+| `CIC_DDoS2019_To_Use.csv` | 54 MB | `ml_server/model_trainer.py` (lives locally under `raw data collected for project/`) |
 
 The `ml_server/serve.py` resolves the model path dynamically. Update the constant if running from a different layout.
 

@@ -54,7 +54,7 @@ The **healthcare-prediction** project ran in parallel, independently, as a separ
 
 **Key files:** `real_time_ddos_detection.py` (main), `train.py`, `predict_ddos.py`, `reducer.py`
 
-**Data/models (not in repo):** `CIC_DDoS2019_To_Use.csv` (54 MB), `optimized_ddos_model.pkl` (37 MB)
+**Data/models (not in repo):** `CIC_DDoS2019_To_Use.csv` (54 MB), `optimized_ddos_model.pkl` (~37 MB; removed locally to free disk space — re-train anytime via `python train.py`)
 
 ---
 
@@ -71,7 +71,7 @@ Supports multiple simultaneous capture devices and cloud-hosted ML inference.
 
 **Config:** `.env.example` — copy to `.env` and fill in `ML_API_URL` and `KAFKA_BOOTSTRAP_SERVERS`
 
-**Models (not in repo):** `model4.pkl` (51 MB, production model)
+**Models (not in repo):** `model4.pkl` (~51 MB, default serving checkpoint; removed locally to free disk space — re-train anytime via `cd ml_server && python model_trainer.py`, which writes `model1.pkl`)
 
 ---
 
@@ -86,8 +86,9 @@ Supports multiple simultaneous capture devices and cloud-hosted ML inference.
 ## Datasets and Model Binaries
 
 **Raw datasets and trained model files are intentionally excluded from all repositories.**
+Pre-trained `.pkl` model checkpoints were also removed locally from `LTS-Files/raw data collected for project/` to free disk space, as they can be re-trained easily from the raw CSV datasets (`python train.py` for monolithic `optimized_ddos_model.pkl`, and `cd ml_server && python model_trainer.py` for distributed `model1.pkl` / `model4.pkl`).
 
-They are large binary artifacts that do not belong in version control. On the local development machine they reside in:
+On the local development machine, the raw datasets reside in:
 
 ```
 LTS-Files/raw data collected for project/
@@ -95,11 +96,11 @@ LTS-Files/raw data collected for project/
 ├── CIC_DDoS2019_To_Use.csv             (54 MB)
 ├── CIC_DDoS2019_balanced_reduced.csv   (43 MB)
 ├── cydataset2.csv                      (96 MB)
-├── NTD.csv                             (157 KB)
-├── optimized_ddos_model.pkl            (37 MB)
-├── ddos_detection_model.pkl            (255 MB)
-├── improved_ddos_model.pkl             (37 MB)
-└── model1.pkl – model4.pkl             (48–59 MB each)
+└── NTD.csv                             (157 KB)
+
+# Deleted locally to save disk space (re-trainable from CIC_DDoS2019_To_Use.csv):
+#   optimized_ddos_model.pkl (~37 MB), ddos_detection_model.pkl (~255 MB),
+#   improved_ddos_model.pkl (~37 MB), model1.pkl – model4.pkl (~48–59 MB each)
 ```
 
 The CIC-DDoS2019 dataset is publicly available from the Canadian Institute for Cybersecurity.
